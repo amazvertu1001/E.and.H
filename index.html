@@ -423,6 +423,14 @@
     <br><br>
     <h1 class="title">Eka<br>&<br>Hermawan</h1><br>
 
+    <!-- ==========================================================
+       KODE UNTUK MENAMPILKAN NAMA TAMU SECARA OTOMATIS
+       ========================================================== -->
+    <div id="guest-section" style="margin-top: 20px; color: #7f95ad; font-size: 13px;">
+      <p style="font-style: italic; margin-bottom: 5px;">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+      <h2 id="guest-name-placeholder" style="font-family: 'Montserrat', sans-serif; font-size: 18px; color: #c47c72; font-weight: bold; letter-spacing: 1px;">Nama Tamu</h2>
+    </div>
+
     <button class="btn" onclick="openInvitation()">
       <span class="btn-icon-wrapper">
         <svg class="love-svg" viewBox="0 0 24 24">
@@ -757,6 +765,23 @@ function resetForm() {
   document.getElementById('char-count').innerText = '0/200';
   document.querySelectorAll('input[name="kehadiran"]').forEach(el => el.checked = false);
 }
+  // Fungsi untuk mengambil nama tamu dari URL Parameter
+function getGuestName() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const guestName = urlParams.get('to'); // Mengambil teks setelah '?to='
+  
+  if (guestName) {
+    // Mengganti teks 'Nama Tamu' dengan nama yang ada di link, otomatis mengubah tanda plus (+) atau %20 menjadi spasi
+    document.getElementById('guest-name-placeholder').innerText = decodeURIComponent(guestName);
+  } else {
+    // Jika di link tidak ada nama tamu, teks ini yang akan muncul sebagai default
+    document.getElementById('guest-name-placeholder').innerText = "Teman-teman & Sahabat";
+  }
+}
+
+// Jalankan fungsi di atas saat halaman selesai dimuat
+window.addEventListener('DOMContentLoaded', getGuestName);
+  
 </script>
 
 </body>
