@@ -784,6 +784,26 @@ function getGuestName() {
 // Jalankan fungsi di atas saat halaman selesai dimuat
 window.addEventListener('DOMContentLoaded', getGuestName);
   
+  document.addEventListener("DOMContentLoaded", function () {
+        // 1. Ambil parameter 'to' dari URL website
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        
+        // 2. Ambil elemen teks tamu di HTML
+        const guestSection = document.getElementById('guest-section');
+        const guestNamePlaceholder = document.getElementById('guest-name-placeholder');
+
+        if (guestName) {
+            // Jika link memiliki '/?to=nama', tampilkan teks dan ganti isinya sesuai nama di URL
+            guestSection.style.display = 'block';
+            
+            // Mengubah tanda plus (+) atau %20 kembali menjadi spasi normal
+            guestNamePlaceholder.innerText = decodeURIComponent(guestName);
+        } else {
+            // Jika tidak ada parameter '/?to=', SEMBUNYIKAN seluruh teks kepada & teman-teman
+            guestSection.style.display = 'none';
+        }
+    });
 </script>
 
 </body>
